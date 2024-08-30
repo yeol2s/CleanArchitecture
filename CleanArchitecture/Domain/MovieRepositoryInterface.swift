@@ -7,6 +7,7 @@
 // MARK: - Interface
 // Repository Interface
 // 이 인터페이스를 통해서 UseCase는 외부 계층(Presentation, Data 레이어)에 대해서 모르는 상태가 될 수 있다.
+// + 테스팅이 가능해짐
 
 import Foundation
 

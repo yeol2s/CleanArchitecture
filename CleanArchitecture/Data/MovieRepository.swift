@@ -14,6 +14,8 @@
     - 데이터 소스와의 상호작용을 추상화하여 클라이언트(UseCase, Domain Layer)는 데이터가 어디에서 오는지, 어떻게 저장되는지에 대해 알 필요가 없다.
     - Repository는 도메인 계층에 속하는 '인터페이스'로 DataLayer는 인터페이스를 구현. 도메인 계층의 비즈니스 로직(UseCase)는 구체적인 DataLayer의 구현체가 아닌, Repository '인터페이스'에 의존
       (UseCase가 Repository 인터페이스를 통해 데이터를 사용한다. - 구체적인 데이터 소스의 구현에 의존하지 않고 추상화된 인터페이스에만 의존하게 됨)
+ 
+ * 상황에 따라 UseCase에서 DTO -> Entity로 변환도 가능할 듯 하다.
  */
 
 import Foundation
@@ -24,6 +26,6 @@ final class MovieRepository: MovieRepositoryInterface { // 프로토콜 인터�
         let urlRequest = URLRequest(url: url)
         let (data, _) = try await URLSession.shared.data(for: urlRequest)
         let movieResponse = try JSONDecoder().decode(BaseResponse<MovieDataDTO>.self, from: data)
-        return movieResponse.data.movies.map { $0.toEntity() } // DTO를 Entity로 맵핑하여 MovieEntity 배열로 반환
+        return movieResponse.data.movies.map { $0.toEntity() } // DTO를 Entity로 맵핑하여 MovieEntity 배열로 반환(DTO -> Entity)
     }
 }
